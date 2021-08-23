@@ -1,6 +1,5 @@
 package com.contactura.contactura.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +21,9 @@ public class ContacturaUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "username")
-	private String userName;
+	private String username;
 	private String password;
 	private String name;
-	private Boolean admin;
+	private boolean admin;
 
 }

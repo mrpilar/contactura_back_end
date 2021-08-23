@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.contactura.contactura.dto.MensagemSucessoDto;
 import com.contactura.contactura.model.Contactura;
 import com.contactura.contactura.repository.ContacturaRepository;
 
@@ -55,12 +56,13 @@ public class ContacturaController {
 	}
 
 	// Delete - http://localhost:8090/contactura/{id}
-	@DeleteMapping(path = { "/id" })
-	public ResponseEntity<?> delete(@PathVariable long id) {
+	@DeleteMapping(path = "{id}")
+	public ResponseEntity<?> delete(@PathVariable long id) {		
 		return repository.findById(id).map(record -> {
 			repository.deleteById(id);
-			return ResponseEntity.ok().build();
+	        MensagemSucessoDto mensagemSucessoDto = new MensagemSucessoDto("Deletado com sucesso!");
+			return ResponseEntity.ok().body(mensagemSucessoDto);
 		}).orElse(ResponseEntity.notFound().build());
 	}
-
 }
+
