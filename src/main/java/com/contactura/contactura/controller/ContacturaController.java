@@ -29,6 +29,12 @@ public class ContacturaController {
 	public List findAll() {
 		return repository.findAll();
 	}
+	
+	// List All com JPQL - http://localhost:8090/contactura/find
+	@GetMapping (value = "/find")
+	public List<Contactura> findAllAtivas() {
+		return repository.findAllAtivas();
+	}
 
 	// Find By Id - http://localhost:8090/contactura/{id}
 	@GetMapping(value = "{id}")
@@ -57,12 +63,11 @@ public class ContacturaController {
 
 	// Delete - http://localhost:8090/contactura/{id}
 	@DeleteMapping(path = "{id}")
-	public ResponseEntity<?> delete(@PathVariable long id) {		
+	public ResponseEntity<?> delete(@PathVariable long id) {
 		return repository.findById(id).map(record -> {
 			repository.deleteById(id);
-	        MensagemSucessoDto mensagemSucessoDto = new MensagemSucessoDto("Deletado com sucesso!");
+			MensagemSucessoDto mensagemSucessoDto = new MensagemSucessoDto("Deletado com sucesso!");
 			return ResponseEntity.ok().body(mensagemSucessoDto);
 		}).orElse(ResponseEntity.notFound().build());
 	}
 }
-

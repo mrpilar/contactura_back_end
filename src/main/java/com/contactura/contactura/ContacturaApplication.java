@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.contactura.contactura.model.Contactura;
+import com.contactura.contactura.model.ContacturaUser;
 import com.contactura.contactura.repository.ContacturaRepository;
 
 @SpringBootApplication
@@ -29,8 +30,9 @@ public class ContacturaApplication {
 				c.setEmail("contactura_user" + id + "@contactura.com");
 				return c;
 			}).map(record -> repository.save(record)).forEach(System.out::println);
-		};
-*/
+		}*/
+		
 	}
+	
 
 
