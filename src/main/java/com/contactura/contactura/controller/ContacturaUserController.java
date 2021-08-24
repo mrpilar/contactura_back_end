@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.contactura.contactura.dto.MensagemSucessoDto;
+import com.contactura.contactura.model.Contactura;
 import com.contactura.contactura.model.ContacturaUser;
 import com.contactura.contactura.repository.ContacturaUserRepository;
 
@@ -21,28 +23,34 @@ import com.contactura.contactura.repository.ContacturaUserRepository;
 public class ContacturaUserController {
 
 	@Autowired
-	private ContacturaUserRepository repository; // http://localhost:8090/contacturauser
+	private ContacturaUserRepository repository; // http://localhost:8090/user
 
 	// List All - http://localhost:8090/contacturauser
 	@GetMapping
 	public List<ContacturaUser> findAll() {
 		return repository.findAll();
 	}
+	
+	// List All com JPQL - http://localhost:8090/user/find
+		@GetMapping (value = "/find")
+		public List<ContacturaUser> findAllAtivas() {
+			return repository.findAllAtivas();
+		}
 
-	// Find By Id - http://localhost:8090/contacturauser/{id}
+	// Find By Id - http://localhost:8090/user/{id}
 	@GetMapping(value = "{id}")
 	public ResponseEntity<?> findById(@PathVariable Long id) {
 		return repository.findById(id).map(record -> ResponseEntity.ok().body(record))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	// Create - http://localhost:8090/contacturauser
+	// Create - http://localhost:8090/user
 	@PostMapping
 	public ContacturaUser create(@RequestBody ContacturaUser user) {
 		return repository.save(user);
 	}
 
-	// Update - http://localhost:8090/contactura/{id}
+	// Update - http://localhost:8090/user/{id}
 	@PutMapping(value = "{id}")
 	public ResponseEntity<?> update(@PathVariable long id, @RequestBody ContacturaUser user) {
 		return repository.findById(id).map(record -> {
@@ -55,13 +63,14 @@ public class ContacturaUserController {
 		}).orElse(ResponseEntity.notFound().build());
 	}
 
-	// Delete - http://localhost:8090/contacturauser/{id}
+	// Delete - http://localhost:8090/user/{id}
 
 	@DeleteMapping(path = "{id}")
 	public ResponseEntity<?> delete(@PathVariable long id) {
 		return repository.findById(id).map(record -> {
 			repository.deleteById(id);
-			return ResponseEntity.ok().build();
+			MensagemSucessoDto mensagemSucessoDto = new MensagemSucessoDto("Deletado com sucesso!");
+			return ResponseEntity.ok().body(mensagemSucessoDto);
 		}).orElse(ResponseEntity.notFound().build());
 	}
 }
