@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 2 elements from project &apos;contactura&apos;&#x0D;&#x0A;- Original project: &apos;contactura&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     contactura/src/main/java/com.contactura.contactura.model&#x0D;&#x0A;     contactura/src/main/java/com.contactura.controller" description="Delete elements" element1="/src\/main\/java&lt;com.contactura.controller" element2="/src\/main\/java&lt;com.contactura.contactura.model" elements="2" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1628808362898" subPackages="false" version="1.0"/>
+</session>
