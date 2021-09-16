@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +20,7 @@ import com.contactura.contactura.dto.MensagemSucessoDto;
 import com.contactura.contactura.model.Contactura;
 import com.contactura.contactura.repository.ContacturaRepository;
 
+@CrossOrigin()
 @RestController
 @RequestMapping({ "/contactura" }) // http://localhost:8090/contactura
 public class ContacturaController {
@@ -30,11 +34,11 @@ public class ContacturaController {
 		return repository.findAll();
 	}
 	
-	// List All com JPQL - http://localhost:8090/contactura/find
+	/*// List All com SQL - http://localhost:8090/contactura/find
 	@GetMapping (value = "/find")
 	public List<Contactura> findAllAtivas() {
 		return repository.findAllAtivas();
-	}
+	}*/
 
 	// Find By Id - http://localhost:8090/contactura/{id}
 	@GetMapping(value = "{id}")
@@ -63,6 +67,7 @@ public class ContacturaController {
 
 	// Delete - http://localhost:8090/contactura/{id}
 	@DeleteMapping(path = "{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> delete(@PathVariable long id) {
 		return repository.findById(id).map(record -> {
 			repository.deleteById(id);
@@ -70,4 +75,6 @@ public class ContacturaController {
 			return ResponseEntity.ok().body(mensagemSucessoDto);
 		}).orElse(ResponseEntity.notFound().build());
 	}
+	
+	
 }

@@ -11,8 +11,7 @@ import com.contactura.contactura.model.Contactura;
 @Repository
 public interface ContacturaRepository extends JpaRepository<Contactura, Long> {
 	
-	
-	@Query(value = "select * from contactura", nativeQuery = true)
-	List<Contactura> findAllAtivas();
+	/*@Query(value = "select * from contactura", nativeQuery = true)
+	List<Contactura> findAllAtivas();*/
 	
 }

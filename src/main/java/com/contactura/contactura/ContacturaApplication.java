@@ -16,6 +16,8 @@ public class ContacturaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ContacturaApplication.class, args);
+		
+		
 	}
 
 	/*@Bean
